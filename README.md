@@ -1,4 +1,3 @@
-# reading_for_all
 
 > 移动平台
 
