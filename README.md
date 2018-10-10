@@ -1,6 +1,6 @@
 # reading_for_all
 
-> 全民阅读
+> 华翰移动平台
 
 ## 备忘
 
@@ -24,3 +24,5 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+Online address： yd.xinhuahanpin.com
