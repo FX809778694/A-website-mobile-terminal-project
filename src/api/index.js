@@ -893,3 +893,29 @@ export const GetSettlementStatus = params => {
   const encryptParams = cryptoOpt.Encrypt(DefaultsJson)
   return postWrap(url, encryptParams)
 }
+/**
+ * 获取轮播图列表
+ * /Goods/GetActivityGoods
+ * @param 参数对象
+ */
+export const getBannerListApi = params => {
+  const url = "/Goods/GetActivityGoods"
+  const timeStamps = formatDate(+new Date())
+
+  const Defaults = {
+    AppKey: 'zqzyApi',
+    V: '1.0',
+    Flag: true,
+    ReqTime: timeStamps,
+    ReqData: {
+      UserId: '',
+      ActivitiesID: '',
+    }
+
+  }
+
+  Defaults.ReqData = Object.assign({}, Defaults.ReqData, params.ReqData)
+  const DefaultsJson = JSON.stringify(Defaults)
+  const encryptParams = cryptoOpt.Encrypt(DefaultsJson)
+  return postWrap(url, encryptParams)
+}

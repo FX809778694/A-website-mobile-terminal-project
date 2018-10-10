@@ -3,11 +3,15 @@
     <header>
       <h3 class="title-message">
         <div class="logo1">
+          <img src="../assets/logo@3x.png" />
         </div>
+          <div class="company">{{Company}}</div>
         <div class="change-account" @click="changeAccount">
-          <b></b>
-          <div class="zt">
-            {{accountName[0]==="" ? "切换账套" :accountName[0]}}
+          <div v-if="accountName[0]">
+            <b></b>
+            <div class="zt">
+              {{accountName[0]=='' ? "切换账套" :accountName[0]}}
+            </div>
           </div>
           <div class="zt-item" v-if="selectContent">
             <p v-for="(item, index) in accountNameList" :key="index" @click="changeAccountId(item.ZTID, item.ZTName)">{{item.ZTName}}</p>
@@ -30,7 +34,9 @@
     <div class="swiper-container">
       <swiper :loop="true" :auto="true" :show-desc-mask="false" class="vux_swiper_img" dots-class="custom-bottom" dots-position="center" height="130px">
         <swiper-item @click.native="bannerLink(item)" v-for="(item, index) in bannerLists" :key="index">
-          <img class="banner" :src="item.ImgPath">
+          <div class="banner-list" @click="$router.push({ name: 'BannerList', params: { id: `${item.ID}`}})">
+            <img class="banner" :src="item.ImgPath">
+          </div>
         </swiper-item>
       </swiper>
     </div>
@@ -43,10 +49,9 @@
         <li class="goods-item fl" v-for="(item, a) in dataArrayShop[index].data" :key="a" @click="$router.push({ name: 'BookInfo', params: { id: `${item.GoodsId}`}})">
           <div class="img-container">
             <img :src="item.MainImage" alt="" class="goods-pic">
-            <p class="pink-area">建议零售价：¥{{item.Price}}</p>
           </div>
           <p class="goods-price">¥{{item.ShowPrice}}</p>
-          <p class="goods-tip">商城特供价</p>
+          <p class="goods-tip">建议零售价：¥{{item.Price}}</p>
           <p class="goods-describe">{{`${item.Product}${item.GoodsName}${item.Format}`}}</p>
         </li>
       </ul>
@@ -93,6 +98,7 @@ export default {
       accountName: [],
       selectContent: false,
       accountNameList: [],
+      Company: '客户信息'
     };
   },
   mixin: [globelFnHanle],
@@ -100,6 +106,8 @@ export default {
     this.getCategory();
     this.getAutoImg();
     this.getShopModal();
+
+    this.Company =  getItem("User").Company
   //  获取账套列表
     const params = {
       ReqData: {
@@ -256,25 +264,29 @@ header {
   text-align: center;
   font-size: 16px;
   height: 100%;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.company{
+  font-size: 14px;
+  color: #212128;
+  margin-right: 20px;
 }
 .logo1 {
-  width: 92px;
-  height: 17px;
-  background: url(../assets/logo@3x.png);
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  background-size: cover;
-  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 14px;
+  & img{
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 }
 .change-account {
   width: 60px;
-  position: absolute;
-  top: 50%;
   right: 10px;
-  transform: translate(0, -50%);
   color: #aaaaaa;
+  position: relative;
   font-size: 14px;
 }
 .change-account {
@@ -302,9 +314,9 @@ header {
   li {
     display: inline-block;
     width: 80px;
-    height: 30px;
-    font-size: 14px;
-    color: #aaa;
+    height: 22px;
+    font-size: 16px;
+    color: #212128;
   }
   .active {
     font-size: 16px;

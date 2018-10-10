@@ -37,6 +37,8 @@ const MyFoot = () =>
   import("@/pages/MyFoot").then(m => m.default)
 const SearchContent = () =>
   import("@/pages/SearchContent").then(m => m.default)
+const BannerList = () =>
+  import("@/pages/BannerList").then(m => m.default)
 
 Vue.use(Router)
 
@@ -131,6 +133,11 @@ export default new Router({
       path: '/searchContent/:q',
       name: "SearchContent",
       component: SearchContent
+    },
+    {
+      path: '/bannerList/:id',
+      name: 'BannerList',
+      component: BannerList
     }
   ]
 })

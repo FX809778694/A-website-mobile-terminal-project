@@ -113,6 +113,12 @@ export default {
       login(params)
         .then(this.globelReqHandle)
         .then(res => {
+          if(res.Code === 404) {
+            this.$vux.toast.show({
+              text: '密码输入有误！',
+              type: "warn"
+            })
+          }
           if(res.Code === 200) {
             const Token = res.Token
             setItem("Token", Token)
@@ -120,15 +126,16 @@ export default {
             const User = {
               LoginName: LoginName,
               LoginPwd: LoginPwd,
-              UserId: res.Result.UserId
+              UserId: res.Result.UserId,
+              Company: res.Result.Company
             }
             setItem("User", User)
             setItem("NowNav", "首页")
+            setTimeout(() => {
+              this.$router.push({ name: "IndexPage" });
+            }, 20);
           }
 
-          setTimeout(() => {
-            this.$router.push({ name: "IndexPage" });
-          }, 20);
         })
         .catch(this.globelErrHandle);
     },
